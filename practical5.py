@@ -21,7 +21,7 @@ def enter_matrix():
 
     return matrix
 
-def multiply_matrix(matrix1=[[1, 2, 3], [1,0, 0]], matrix2=[[1,1,1], [1,1,1], [1,1,2]]):
+def multiply_matrix(matrix1, matrix2):
     """
         Function to multiply two matrix with each other and
         return a final matrix. This takes two matrix as argument.
@@ -43,3 +43,40 @@ def multiply_matrix(matrix1=[[1, 2, 3], [1,0, 0]], matrix2=[[1,1,1], [1,1,1], [1
         multiplication_matrix.append(row)
 
     return multiplication_matrix
+
+
+# Now we will use the numpy library to work with diffrent functions on matrix.
+# This can be achieved by using numpy.array function which will convert a 2-D
+# array into a numpy array on which inbuilt functions can be applied.
+
+def multiply_matrix_numpy(matrix1, matrix2):
+    """
+        This function will multiply 2 matrices and give a numpy 
+        array using numpy dot function
+    """
+
+    return numpy.dot(matrix1, matrix2)
+
+def compare_multilied_matrices(matrix1, matrix2):
+
+    multiplied_matrix_manual =numpy.array(multiply_matrix(matrix1, matrix2))
+    multiplied_matrix_numpy = multiply_matrix_numpy(matrix1, matrix2)
+
+    return multiplied_matrix_manual==multiplied_matrix_numpy
+
+def coordinate_tranformation(angle, matrix):
+    """
+        Function to transform a given matrix to another one 
+        when the coordinate axis is rotated by angle given.
+        The angle is angle between original and transformed
+        X-axis in anti-clockwise direction.
+    """
+
+    transformation_matrix = [[math.cos(angle), math.cos(math.pi/2-angle), math.cos(pi/2)],
+                             [math.cos(math.pi/2+angle), math.cos(angle), math.cos(pi/2)],
+                             [math.cos(pi/2), math.cos(pi/2), math.cos(0)]]
+
+    
+    m1 = multiply_matrix_numpy(transformation_matrix, matrix)
+
+    return multiply_matrix_numpy(numpy.array(m1), numpy.array(transformation_matrix.T))
