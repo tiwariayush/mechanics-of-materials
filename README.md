@@ -3,7 +3,9 @@
 About
 =====
 This module is built to demonstrate the basic matrix algebra, as well as its usage in Mechanics of Materials.
-It was developed for demonstration as a Practical #5 under the course MI-364 taken by Dr.Manish Joglekar
+It was developed for demonstration as a Practical #5 under the course MI-364 taken by Dr.Manish Joglekar.
+
+[Theory for this project](http://en.wikipedia.org/wiki/Infinitesimal_strain_theory)
 
 Major functions are :- 
 - Matrix multiplication (Basic looping as well as using numpy built-in functions)
