@@ -11,16 +11,18 @@ def enter_matrix():
         rows and n no. of columns
     """
 
-    m = int(raw_input("Enter n, i.e, number of rows:"))
-    n = int(raw_input("Enter m, i.e, number of columns:"))
+    m = int(raw_input("Enter n, i.e, number of rows: \n"))
+    n = int(raw_input("Enter m, i.e, number of columns: \n"))
 
     matrix = []
     for i in xrange(m):
         row = []
+        print 'Enter values for %s row'%(i+1)
         for j in xrange(n):
             row.append(float(raw_input()))
-        print 'Enter values for next row'
         matrix.append(row)
+
+    print 'The matrix you entered is :', matrix, '\n'
 
     return matrix
 
@@ -44,7 +46,7 @@ def multiply_matrix(matrix1, matrix2):
                 point = point + matrix1[k][j]*matrix2[j][i]
             row.append(point)
         multiplication_matrix.append(row)
-
+    print 'The multiplication matrix is: \n'
     return multiplication_matrix
 
 
@@ -68,7 +70,7 @@ def compare_multilied_matrices(matrix1, matrix2):
 
     return multiplied_matrix_manual==multiplied_matrix_numpy
 
-def coordinate_tranformation(angle, matrix):
+def coordinate_transformation(angle, matrix):
     """
         Function to transform a given matrix to another one 
         when the coordinate axis is rotated by angle given.
@@ -76,14 +78,13 @@ def coordinate_tranformation(angle, matrix):
         X-axis in anti-clockwise direction.
     """
 
-    transformation_matrix = [[math.cos(angle), math.cos(math.pi/2-angle), math.cos(pi/2)],
-                             [math.cos(math.pi/2+angle), math.cos(angle), math.cos(pi/2)],
-                             [math.cos(pi/2), math.cos(pi/2), math.cos(0)]]
+    transformation_matrix = [[math.cos(angle), math.cos(math.pi/2-angle), math.cos(math.pi/2)],
+                             [math.cos(math.pi/2+angle), math.cos(angle), math.cos(math.pi/2)],
+                             [math.cos(math.pi/2), math.cos(math.pi/2), math.cos(0)]]
 
-    
     m1 = multiply_matrix_numpy(transformation_matrix, matrix)
 
-    return multiply_matrix_numpy(numpy.array(m1), numpy.array(transformation_matrix.T))
+    return multiply_matrix_numpy(numpy.array(m1), numpy.array(transformation_matrix).T)
 
 # From here, we will continue with obtaining gradient for a given..
 # displacement field. All the functions are in a class.
@@ -141,7 +142,17 @@ class Gradient(object):
         self.rotation_tensor = numpy.multiply(numpy.add(self.disp_grad, self.disp_grad.T), 0.5)
 
 if __name__ == '__main__':
+    
+    matrix1 = enter_matrix()
+    matrix2 = enter_matrix()
+    print multiply_matrix(matrix1, matrix2) , '\n'
+    print multiply_matrix_numpy(matrix1, matrix2), '\n'
 
+    """
+    matrix1 = [[1,0,3], [0,2,2], [3,2,4]]
+    print coordinate_transformation(math.pi/3, matrix1)
+    """
+    """
     import sys
     g = Gradient(u='2*x**2*y', v='2*y*z', w='2*x*z**3')
 
@@ -156,3 +167,4 @@ if __name__ == '__main__':
     g.find_rotation_tensor()
     print 'The rotation tensor is:'
     print g.rotation_tensor
+    """
